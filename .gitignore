@@ -16,6 +16,8 @@ build/
 /build
 /build/*
 
+.idea
+
 # Package Files #
 *.jar
 *.war
