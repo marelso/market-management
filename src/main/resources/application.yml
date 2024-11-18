@@ -6,3 +6,8 @@ spring:
     mongodb:
       database: market
       host: localhost
+
+jwt:
+  key: "DIJASFHUASFHSGAGYDFASDISADHUFYADSFHISAJNIOFGASBHRFIASUHREUIQHUWEIQUWEH*Q!&(@Y#*(!@#Y!(YRHEDIUQHSWHR(*Y$#@!HYEN$DIUSDD"
+  accessTokenExpiration: 10000000
+  refreshTokenExpiration: 10000000
