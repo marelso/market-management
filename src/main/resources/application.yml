@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: market-management
+
+  data:
+    mongodb:
+      database: market
+      host: localhost
