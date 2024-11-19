@@ -20,11 +20,19 @@ repositories {
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+
+	implementation("io.jsonwebtoken:jjwt:0.12.1")
 
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
+
+	compileOnly("org.projectlombok:lombok")
+	annotationProcessor("org.projectlombok:lombok")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
