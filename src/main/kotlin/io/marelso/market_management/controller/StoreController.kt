@@ -16,9 +16,12 @@ class StoreController(
     fun create(
         @RequestHeader("Authorization") bearerToken: String,
         @RequestBody request: CreateStoreDto
-    ) = ResponseEntity.ok(service.create(
-        request
-    ))
+    ) = ResponseEntity.ok(
+        service.create(
+            authenticationService.extractAccountFromToken(bearerToken),
+            request
+        )
+    )
 
     @GetMapping("/{id}")
     fun get(

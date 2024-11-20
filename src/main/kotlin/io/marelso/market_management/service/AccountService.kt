@@ -7,19 +7,19 @@ import io.marelso.market_management.domain.dto.AccountCreateDto
 import io.marelso.market_management.domain.dto.AccountDto
 import io.marelso.market_management.domain.factory.AccountFactory
 import io.marelso.market_management.repository.AccountRepository
-import lombok.RequiredArgsConstructor
+import org.springframework.context.annotation.Lazy
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
-@RequiredArgsConstructor
 class AccountService(
     private val repository: AccountRepository,
     private val factory: AccountFactory,
-    private val storeService: StoreService,
+    @Lazy private var storeService: StoreService,
     private val passwordEncoder: PasswordEncoder
 ) {
+
     fun save(request: AccountCreateDto): AccountDto {
         request.takeIf {
             repository.findByEmail(request.email) == null
