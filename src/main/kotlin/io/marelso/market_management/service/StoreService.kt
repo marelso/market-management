@@ -1,5 +1,6 @@
 package io.marelso.market_management.service
 
+import io.marelso.market_management.domain.Account
 import io.marelso.market_management.domain.Store
 import io.marelso.market_management.domain.dto.CreateStoreDto
 import io.marelso.market_management.repository.StoreRepository
@@ -22,7 +23,11 @@ class StoreService(private val repository: StoreRepository) {
         }
     }
 
-    fun getUserStores(id: String): List<Store> {
-        return repository.findAllById(listOf(id))
+    fun get(account: Account): List<Store> {
+        return repository.findAllById(
+            account.accountContext.map {
+                it.store.id.orEmpty()
+            }
+        )
     }
 }

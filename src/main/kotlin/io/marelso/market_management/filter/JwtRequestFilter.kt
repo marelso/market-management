@@ -3,6 +3,9 @@ package io.marelso.market_management.filter
 import io.marelso.market_management.config.SecurityConfiguration.Companion.AUTH_WHITELIST
 import io.marelso.market_management.service.AccountSecurityService
 import io.marelso.market_management.service.TokenService
+import io.marelso.market_management.utils.containsBearerToken
+import io.marelso.market_management.utils.getToken
+import io.marelso.market_management.utils.isWhiteList
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -40,10 +43,4 @@ class JwtRequestFilter(
         }
         filterChain.doFilter(request, response)
     }
-
-    private fun String.isWhiteList() = AUTH_WHITELIST.contains(this)
-
-    private fun String.containsBearerToken() = this.startsWith("Bearer ")
-
-    private fun String.getToken() = this.substringAfter("Bearer ")
 }

@@ -27,8 +27,7 @@ class StoreController(
     ) = ResponseEntity.ok(service.get(id))
 
     @GetMapping
-    fun getUserStores(
-        @RequestHeader("Authorization") bearerToken: String,
-        @RequestParam("userId") userId: String
-    ) = ResponseEntity.ok(service.get(userId))
+    fun getAccountStores(
+        @RequestHeader("Authorization") bearerToken: String
+    ) = ResponseEntity.ok(service.get(authenticationService.extractAccountFromToken(bearerToken)))
 }
