@@ -1,6 +1,7 @@
 package io.marelso.market_management.service
 
 import io.marelso.market_management.config.TokenProperties
+import io.marelso.market_management.domain.Account
 import io.marelso.market_management.domain.dto.AccountDto
 import io.marelso.market_management.domain.factory.AccountFactory
 import org.springframework.security.authentication.AuthenticationManager
@@ -32,4 +33,8 @@ class AuthenticationService(
 
         return accountFactory.from(account, token)
     }
+
+    fun extractAccountFromToken(token: String) = accountSecurityService.loadUserByUsername(
+        tokenService.extractEmail(token)
+    )
 }
