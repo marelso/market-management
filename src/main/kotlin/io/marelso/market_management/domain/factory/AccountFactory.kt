@@ -13,7 +13,17 @@ class AccountFactory {
             lastName = account.lastName,
             pictureUrl = account.pictureUrl,
             email = account.email,
+            context = account.accountContext,
             jwt = jwt
         )
     }
+
+    fun from(account: Account) = AccountDto(
+        reference = account.id,
+        firstName = account.firstName,
+        lastName = account.lastName,
+        pictureUrl = account.pictureUrl,
+        context = account.accountContext,
+        email = account.email,
+    )
 }

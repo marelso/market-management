@@ -16,4 +16,11 @@ class AccountController(private val service: AccountService) {
         @RequestHeader("Authorization") bearerToken: String,
         @PathVariable("id") id: String
     ) = ResponseEntity.ok(service.get(id))
+
+    @PutMapping("/{id}")
+    fun includeStoreToAccount(
+        @RequestHeader("Authorization") bearerToken: String,
+        @PathVariable("id") id: String,
+        @RequestParam("storeId") storeId: String
+    ) = service.includeStoreToAccount(id, storeId)
 }
