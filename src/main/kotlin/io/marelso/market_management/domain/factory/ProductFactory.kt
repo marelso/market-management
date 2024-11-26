@@ -17,11 +17,12 @@ class ProductFactory {
         )
     }
 
-    fun from(products: List<Product>) = products.map { from(it) }
+    fun from(products: List<Pair<Product, Int>>) = products.map { from(it.first, it.second) }
 
-    fun from(product: Product): ProductDto {
+    fun from(product: Product, count: Int): ProductDto {
         return ProductDto(
             id = product.id,
+            storeId = product.storeId,
             name = product.name,
             description = product.description,
             price = product.price,

@@ -8,7 +8,9 @@ data class Sale(
     val productId: String,
     val storeId: String,
     val buyingPrice: Double,
-    val sellingPrice: Double,
+    val sellingPrice: Double? = null,
     val sellingDate: LocalDateTime? = null,
+    val invoiceUrl: String? = null,
+    val receiptUrl: String? = null,
     @CreatedDate val buyingDate: LocalDateTime? = null
 )

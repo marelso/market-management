@@ -1,7 +1,6 @@
 package io.marelso.market_management.domain.dto
 
 data class BuyProductDto(
-    val productId: String,
-    val quantity: Int,
-    val cost: Double
+    val products: List<SaleProductDto>,
+    val invoiceUrl: String
 )
