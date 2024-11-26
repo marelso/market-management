@@ -5,5 +5,7 @@ data class ProductDto(
     val pictureUrl: String? = null,
     val name: String? = null,
     val description: String? = null,
-    val price: Double? = null
+    val price: Double? = null,
+    val createdAt: String,
+    val updatedAt: String
 )
