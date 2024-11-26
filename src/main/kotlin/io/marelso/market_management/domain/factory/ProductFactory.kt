@@ -25,7 +25,18 @@ class ProductFactory {
             name = product.name,
             description = product.description,
             price = product.price,
-            pictureUrl = product.pictureUrl
+            pictureUrl = product.pictureUrl,
+            createdAt = product.createdDate.toString(),
+            updatedAt = product.lastModifiedDate.toString()
+        )
+    }
+
+    fun from(product: Product, update: CreateProductDto): Product {
+        return product.copy(
+            name = update.name,
+            price = update.price,
+            pictureUrl = update.pictureUrl,
+            description = update.description,
         )
     }
 }

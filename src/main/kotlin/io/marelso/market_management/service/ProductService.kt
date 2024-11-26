@@ -21,8 +21,14 @@ class ProductService(
     }
 
     fun getById(id: String): ProductDto {
-        return factory.from(repository.findById(id).orElseThrow {
-            throw RuntimeException("Store with id $id not found")
-        })
+        return factory.from(findById(id))
+    }
+
+    private fun findById(id: String) = repository.findById(id).orElseThrow {
+        throw RuntimeException("Store with id $id not found")
+    }
+
+    fun update(id: String, update: CreateProductDto): ProductDto {
+        return factory.from(repository.save(factory.from(findById(id), update)))
     }
 }

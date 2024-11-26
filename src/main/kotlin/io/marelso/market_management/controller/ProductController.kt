@@ -15,6 +15,12 @@ class ProductController(private val service: ProductService) {
         @RequestBody product: CreateProductDto
     ): ResponseEntity<ProductDto> = ResponseEntity.ok(service.create(product))
 
+    @PutMapping("/{id}")
+    fun update(
+        @RequestBody product: CreateProductDto,
+        @PathVariable id: String
+    ): ResponseEntity<ProductDto> = ResponseEntity.ok(service.update(id, product))
+
     @GetMapping
     fun getByStoreId(
         @RequestParam(value = "storeId") storeId: String,
