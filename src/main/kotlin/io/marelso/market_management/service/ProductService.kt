@@ -5,6 +5,8 @@ import io.marelso.market_management.domain.dto.CreateProductDto
 import io.marelso.market_management.domain.dto.ProductDto
 import io.marelso.market_management.domain.factory.ProductFactory
 import io.marelso.market_management.repository.ProductRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
@@ -19,10 +21,17 @@ class ProductService(
         return factory.from(entity, salesService.countSalesByProductId(entity.id.orEmpty()))
     }
 
-    fun getByStoreId(storeId: String, pageable: Pageable): List<ProductDto> {
-        return factory.from(repository.findAllByStoreId(storeId, pageable).map { product: Product ->
-            Pair(product, salesService.countSalesByProductId(product.id.orEmpty()))
+    fun getByStoreId(storeId: String, pageable: Pageable): Page<ProductDto> {
+        val products = repository.findAllByStoreId(storeId, pageable)
+        val dto: List<ProductDto> = factory.from(products.content.map {
+            Pair(it, salesService.countSalesByProductId(it.id.orEmpty()))
         })
+
+        return PageImpl(
+            dto,
+            pageable,
+            products.totalElements
+        )
     }
 
     fun getById(id: String): ProductDto {

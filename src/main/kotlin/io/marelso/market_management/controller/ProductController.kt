@@ -3,6 +3,7 @@ package io.marelso.market_management.controller
 import io.marelso.market_management.domain.dto.CreateProductDto
 import io.marelso.market_management.domain.dto.ProductDto
 import io.marelso.market_management.service.ProductService
+import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -25,7 +26,7 @@ class ProductController(private val service: ProductService) {
     fun getByStoreId(
         @RequestParam(value = "storeId") storeId: String,
         pageable: Pageable
-    ): ResponseEntity<List<ProductDto>> = ResponseEntity.ok(service.getByStoreId(storeId, pageable))
+    ): ResponseEntity<Page<ProductDto>> = ResponseEntity.ok(service.getByStoreId(storeId, pageable))
 
     @GetMapping("/{productId}")
     fun getByProductId(
