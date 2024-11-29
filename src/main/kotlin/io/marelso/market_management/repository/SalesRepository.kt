@@ -8,5 +8,5 @@ import java.util.*
 @Repository
 interface SalesRepository: MongoRepository<Sale, String> {
     fun findFirstByProductId(productId: String): Optional<Sale>
-    fun countSalesByProductId(productId: String): Int
+    fun countSalesByProductIdAndSellingDateIsNull(productId: String): Int
 }

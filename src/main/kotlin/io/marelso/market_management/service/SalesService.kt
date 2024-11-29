@@ -41,7 +41,7 @@ class SalesService(
         }
     }
 
-    fun countSalesByProductId(productId: String): Int = repository.countSalesByProductId(productId)
+    fun countSalesByProductId(productId: String): Int = repository.countSalesByProductIdAndSellingDateIsNull(productId)
 
     private fun getSaleByProductId(id: String): Sale {
         return repository.findFirstByProductId(id).orElseThrow {
