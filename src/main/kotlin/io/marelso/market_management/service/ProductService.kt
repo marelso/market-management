@@ -1,6 +1,5 @@
 package io.marelso.market_management.service
 
-import io.marelso.market_management.domain.Product
 import io.marelso.market_management.domain.dto.CreateProductDto
 import io.marelso.market_management.domain.dto.ProductDto
 import io.marelso.market_management.domain.factory.ProductFactory
@@ -21,8 +20,17 @@ class ProductService(
         return factory.from(entity, salesService.countSalesByProductId(entity.id.orEmpty()))
     }
 
-    fun getByStoreId(storeId: String, pageable: Pageable): Page<ProductDto> {
-        val products = repository.findAllByStoreId(storeId, pageable)
+    fun getByStoreId(
+        storeId: String,
+        query: String,
+        pageable: Pageable
+    ): Page<ProductDto> {
+        val products = repository.findAllByStoreIdAndNameContainsOrDescriptionContains(
+            storeId = storeId,
+            name = query,
+            description = query,
+            pageable = pageable
+        )
         val dto: List<ProductDto> = factory.from(products.content.map {
             Pair(it, salesService.countSalesByProductId(it.id.orEmpty()))
         })

@@ -8,5 +8,10 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface ProductRepository: MongoRepository<Product, String> {
-    fun findAllByStoreId(storeId: String, pageable: Pageable): Page<Product>
+    fun findAllByStoreIdAndNameContainsOrDescriptionContains(
+        storeId: String,
+        name: String,
+        description: String,
+        pageable: Pageable
+    ): Page<Product>
 }

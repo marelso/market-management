@@ -25,8 +25,9 @@ class ProductController(private val service: ProductService) {
     @GetMapping
     fun getByStoreId(
         @RequestParam(value = "storeId") storeId: String,
+        @RequestParam(value = "query", required = false, defaultValue = "") query: String,
         pageable: Pageable
-    ): ResponseEntity<Page<ProductDto>> = ResponseEntity.ok(service.getByStoreId(storeId, pageable))
+    ): ResponseEntity<Page<ProductDto>> = ResponseEntity.ok(service.getByStoreId(storeId, query, pageable))
 
     @GetMapping("/{productId}")
     fun getByProductId(
