@@ -1,7 +1,7 @@
 package io.marelso.market_management.service
 
 import io.marelso.market_management.domain.Sale
-import io.marelso.market_management.domain.dto.BuyProductDto
+import io.marelso.market_management.domain.dto.Transaction
 import io.marelso.market_management.domain.factory.SalesFactory
 import io.marelso.market_management.repository.SalesRepository
 import org.springframework.context.annotation.Lazy
@@ -14,7 +14,7 @@ class SalesService(
     private val factory: SalesFactory,
     @Lazy private val productService: ProductService
 ) {
-    fun buy(buy: BuyProductDto) {
+    fun buy(buy: Transaction) {
         buy.products.forEach { product ->
             val productEntity = productService.getById(product.productId)
 
@@ -24,7 +24,7 @@ class SalesService(
         }
     }
 
-    fun sell(sell: BuyProductDto) {
+    fun sell(sell: Transaction) {
         sell.products.forEach { product ->
             val entity = getSaleByProductId(product.productId)
             val productEntity = productService.getById(product.productId)

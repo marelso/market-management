@@ -1,6 +1,6 @@
 package io.marelso.market_management.controller
 
-import io.marelso.market_management.domain.dto.BuyProductDto
+import io.marelso.market_management.domain.dto.Transaction
 import io.marelso.market_management.service.SalesService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController
 class SalesController(private val service: SalesService) {
     @PostMapping
     fun buy(
-        @RequestBody cart: BuyProductDto
+        @RequestBody cart: Transaction
     ) = ResponseEntity.ok(service.buy(cart))
 
     @PutMapping
     fun sell(
-        @RequestBody cart: BuyProductDto
+        @RequestBody cart: Transaction
     ) = ResponseEntity.ok(service.sell(cart))
 }
