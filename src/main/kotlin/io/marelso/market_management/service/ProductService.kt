@@ -17,7 +17,11 @@ class ProductService(
 ) {
     fun create(product: CreateProductDto): ProductDto {
         val entity = repository.save(factory.from(product))
-        return factory.from(entity, salesService.countSalesByProductId(entity.id.orEmpty()))
+        return factory.from(
+            entity,
+            salesService.countSalesByProductId(entity.id.orEmpty()),
+            salesService.getAverageCostByProductId(entity.id.orEmpty())
+        )
     }
 
     fun getByStoreId(
@@ -32,7 +36,12 @@ class ProductService(
             pageable = pageable
         )
         val dto: List<ProductDto> = factory.from(products.content.map {
-            Pair(it, salesService.countSalesByProductId(it.id.orEmpty()))
+            Pair(
+                it, Pair(
+                    salesService.countSalesByProductId(it.id.orEmpty()),
+                    salesService.getAverageCostByProductId(it.id.orEmpty())
+                )
+            )
         })
 
         return PageImpl(
@@ -44,7 +53,11 @@ class ProductService(
 
     fun getById(id: String): ProductDto {
         val entity = findById(id)
-        return factory.from(entity, salesService.countSalesByProductId(entity.id.orEmpty()))
+        return factory.from(
+            entity,
+            salesService.countSalesByProductId(entity.id.orEmpty()),
+            salesService.getAverageCostByProductId(entity.id.orEmpty())
+        )
     }
 
     private fun findById(id: String) = repository.findById(id).orElseThrow {
@@ -53,6 +66,10 @@ class ProductService(
 
     fun update(id: String, update: CreateProductDto): ProductDto {
         val entity = repository.save(factory.from(findById(id), update))
-        return factory.from(entity, salesService.countSalesByProductId(entity.id.orEmpty()))
+        return factory.from(
+            entity,
+            salesService.countSalesByProductId(entity.id.orEmpty()),
+            salesService.getAverageCostByProductId(entity.id.orEmpty())
+        )
     }
 }

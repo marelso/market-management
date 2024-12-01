@@ -7,6 +7,7 @@ data class ProductDto(
     val count: Int = 0,
     val name: String,
     val price: Double,
+    val averageCost: Double,
     val storeId: String,
     val createdAt: String,
     val updatedAt: String

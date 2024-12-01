@@ -17,9 +17,9 @@ class ProductFactory {
         )
     }
 
-    fun from(products: List<Pair<Product, Int>>) = products.map { from(it.first, it.second) }
+    fun from(products: List<Pair<Product, Pair<Int, Double>>>) = products.map { from(it.first, it.second.first, it.second.second) }
 
-    fun from(product: Product, count: Int): ProductDto {
+    fun from(product: Product, count: Int, average: Double): ProductDto {
         return ProductDto(
             id = product.id,
             storeId = product.storeId,
@@ -28,7 +28,8 @@ class ProductFactory {
             price = product.price,
             pictureUrl = product.pictureUrl,
             createdAt = product.createdDate.toString(),
-            updatedAt = product.lastModifiedDate.toString()
+            updatedAt = product.lastModifiedDate.toString(),
+            averageCost = average
         )
     }
 

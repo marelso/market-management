@@ -43,6 +43,8 @@ class SalesService(
 
     fun countSalesByProductId(productId: String): Int = repository.countSalesByProductIdAndSellingDateIsNull(productId)
 
+    fun getAverageCostByProductId(productId: String): Double = repository.avgCostByProductId(productId) ?: 0.0
+
     private fun getSaleByProductId(id: String): Sale {
         return repository.findFirstByProductId(id).orElseThrow {
             throw RuntimeException("There are no sales for given product id: $id")
