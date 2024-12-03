@@ -19,15 +19,17 @@ class ProductEntryService(
     ): ProductDto {
         productService.existsById(cart.productId)
 
-        repository.save(
-            ProductEntry(
-                transactionId = transactionId,
-                productId = cart.productId,
-                storeId = storeId,
-                accountId = accountId,
-                price = cart.cost,
+        for(index in 1..cart.quantity){
+            repository.save(
+                ProductEntry(
+                    transactionId = transactionId,
+                    productId = cart.productId,
+                    storeId = storeId,
+                    accountId = accountId,
+                    price = cart.cost,
+                )
             )
-        )
+        }
 
         return productService.getById(cart.productId)
     }
