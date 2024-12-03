@@ -6,14 +6,13 @@ import java.time.LocalDateTime
 
 data class Transaction(
     val id: String? = null,
-    val productId: String,
     val storeId: String,
     val accountId: String,
     val type: TransactionType,
-    val value: Double,
-    val invoiceUrl: String,
+    val invoiceUrl: String? = null,
+    val total: Double,
     @CreatedDate
-    val createdAt: LocalDateTime,
+    val createdAt: LocalDateTime? = null,
     @LastModifiedDate
-    val lastModifiedDate: LocalDateTime,
+    val lastModifiedDate: LocalDateTime? = null,
 )
