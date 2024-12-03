@@ -51,7 +51,11 @@ class ProductService(
         )
     }
 
-    fun existsById(productId: String): Boolean = repository.existsById(productId)
+    fun existsById(productId: String) {
+        if(repository.existsById(productId).not()) {
+            throw RuntimeException("Product with id $productId not found")
+        }
+    }
 
     fun getById(id: String): ProductDto {
         val entity = findById(id)
