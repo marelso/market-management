@@ -10,9 +10,9 @@ data class ProductEntry(
     val productId: String,
     val storeId: String,
     val accountId: String,
-    val cost: Double,
+    val price: Double,
     @CreatedDate
-    val createdAt: LocalDateTime,
+    val createdAt: LocalDateTime? = null,
     @LastModifiedDate
-    val lastModifiedDate: LocalDateTime,
+    val lastModifiedDate: LocalDateTime? = null,
 )
