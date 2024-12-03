@@ -51,6 +51,8 @@ class ProductService(
         )
     }
 
+    fun existsById(productId: String): Boolean = repository.existsById(productId)
+
     fun getById(id: String): ProductDto {
         val entity = findById(id)
         return factory.from(
