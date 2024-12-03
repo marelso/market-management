@@ -5,6 +5,8 @@ import io.marelso.market_management.domain.dto.Transaction
 import io.marelso.market_management.domain.factory.SalesFactory
 import io.marelso.market_management.repository.SalesRepository
 import org.springframework.context.annotation.Lazy
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
@@ -14,6 +16,10 @@ class SalesService(
     private val factory: SalesFactory,
     @Lazy private val productService: ProductService
 ) {
+    fun getTransactionsByProductId(id: String, pageable: Pageable): Page<Sale> {
+        return repository.findAllByProductId(id, pageable)
+    }
+
     fun buy(buy: Transaction) {
         buy.products.forEach { product ->
             val productEntity = productService.getById(product.productId)

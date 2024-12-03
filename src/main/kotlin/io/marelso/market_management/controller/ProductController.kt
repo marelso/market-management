@@ -1,8 +1,10 @@
 package io.marelso.market_management.controller
 
+import io.marelso.market_management.domain.Sale
 import io.marelso.market_management.domain.dto.CreateProductDto
 import io.marelso.market_management.domain.dto.ProductDto
 import io.marelso.market_management.service.ProductService
+import io.marelso.market_management.service.SalesService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
@@ -10,7 +12,10 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/v1/products")
-class ProductController(private val service: ProductService) {
+class ProductController(
+    private val service: ProductService,
+    private val salesService: SalesService
+) {
     @PostMapping
     fun create(
         @RequestBody product: CreateProductDto
@@ -33,4 +38,10 @@ class ProductController(private val service: ProductService) {
     fun getByProductId(
         @PathVariable("productId") productId: String
     ): ResponseEntity<ProductDto> = ResponseEntity.ok(service.getById(productId))
+
+    @GetMapping("/{productId}/transactions")
+    fun getTransactionsByProductId(
+        @PathVariable("productId") productId: String,
+        pageable: Pageable
+    ): ResponseEntity<Page<Sale>> = ResponseEntity.ok(salesService.getTransactionsByProductId(productId, pageable))
 }
