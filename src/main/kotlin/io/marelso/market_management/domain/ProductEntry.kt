@@ -11,6 +11,7 @@ data class ProductEntry(
     val storeId: String,
     val accountId: String,
     val price: Double,
+    val deleted: Boolean = false,
     @CreatedDate
     val createdAt: LocalDateTime? = null,
     @LastModifiedDate
