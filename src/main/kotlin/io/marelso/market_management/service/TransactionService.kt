@@ -48,4 +48,39 @@ class TransactionService(
             )
         } ?: throw RuntimeException("Transaction could not be created")
     }
+
+    fun sell(
+        cart: CartRequestDto,
+        account: Account
+    ): TransactionDto {
+        val transaction = repository.save(
+            Transaction(
+                storeId = cart.storeId,
+                accountId = account.id.orEmpty(),
+                type = TransactionType.SELLING,
+                total = cart.products.sumOf { it.cost * it.quantity }
+            )
+        )
+        val products = mutableListOf<ProductDto>()
+
+        transaction.id?.let {
+            cart.products.forEach { cartItem ->
+                products.add(
+                    entryService.sell(
+                        cart = cartItem,
+                        storeId = cart.storeId,
+                        accountId = account.id.orEmpty(),
+                        transactionId = transaction.id
+                    )
+                )
+            }
+
+            return TransactionDto(
+                id = transaction.id,
+                type = transaction.type,
+                products = products,
+                total = transaction.total,
+            )
+        } ?: throw RuntimeException("Transaction could not be created")
+    }
 }

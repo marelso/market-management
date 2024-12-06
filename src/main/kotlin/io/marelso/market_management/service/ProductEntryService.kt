@@ -4,6 +4,7 @@ import io.marelso.market_management.domain.ProductEntry
 import io.marelso.market_management.domain.dto.ProductDto
 import io.marelso.market_management.domain.dto.SaleProductDto
 import io.marelso.market_management.repository.ProductEntryRepository
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
@@ -31,6 +32,24 @@ class ProductEntryService(
             )
         }
 
-        return productService.getById(cart.productId)
+        return productService.getById(cart.productId).copy(count = cart.quantity)
+    }
+
+    fun sell(
+        cart: SaleProductDto,
+        transactionId: String,
+        accountId: String,
+        storeId: String
+    ): ProductDto {
+        productService.existsById(cart.productId)
+
+        for(index in 1..cart.quantity){
+            val product = repository.findFirstByProductIdAndDeletedFalse(cart.productId).orElseThrow {
+                RuntimeException("Product doesn't have required amount")
+            }
+            repository.save(product.copy(deleted = true))
+        }
+
+        return productService.getById(cart.productId).copy(count = cart.quantity)
     }
 }
